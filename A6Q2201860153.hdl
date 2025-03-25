@@ -5,15 +5,36 @@ CHIP A6Q2201860153 {
     PARTS:
     Not(in=a, out=notA);
     Not(in=b, out=notB);
-    And3(a=notA, b=notB, c=c, out=term1);
-    Not(in=a, out=notA);
-    Not(in=c, out=notC);
-    And3(a=notA, c=notC, d=d, out=term2);
-    Not(in=c, out=notC);
-    And3(b=b, c=notC, d=d, out=term3);
-    Not(in=b, out=notB);
     Not(in=c, out=notC);
     Not(in=d, out=notD);
-    And4(a=a, b=notB, c=notC, d=notD, out=term4);
-    Or4(a=term1, b=term2, c=term3, d=term4, out=f);
+
+    And(a=notA, b=notB, out=and1_1);
+    And(a=and1_1, b=notC, out=and1_2);
+    And(a=and1_2, b=d, out=t1);
+
+    And(a=notA, b=notB, out=and2_1);
+    And(a=and2_1, b=c, out=and2_2);
+    And(a=and2_2, b=notD, out=t2);
+
+    And(a=notA, b=notB, out=and3_1);
+    And(a=and3_1, b=c, out=and3_2);
+    And(a=and3_2, b=d, out=t3);
+
+    And(a=notA, b=b, out=and4_1);
+    And(a=and4_1, b=notC, out=and4_2);
+    And(a=and4_2, b=d, out=t4);
+
+    And(a=a, b=notB, out=and5_1);
+    And(a=and5_1, b=notC, out=and5_2);
+    And(a=and5_2, b=notD, out=t5);
+
+    And(a=a, b=b, out=and6_1);
+    And(a=and6_1, b=notC, out=and6_2);
+    And(a=and6_2, b=d, out=t6);
+
+    Or(a=t1, b=t2, out=or1);
+    Or(a=or1, b=t3, out=or2);
+    Or(a=or2, b=t4, out=or3);
+    Or(a=or3, b=t5, out=or4);
+    Or(a=or4, b=t6, out=f);
 }
